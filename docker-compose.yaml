@@ -1,0 +1,23 @@
+version '3'
+
+services:
+
+    db: 
+      build: ./db
+      restart: always
+      ports:
+        -1433:1433
+      
+    iis:
+     build: ./web
+     restart: always
+      ports:
+          -5106:1433
+      depends-on:
+        -db
+        
+    lb:
+      build: ./lb
+      restart: always
+      ports: 
+        -80:5106
